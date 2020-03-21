@@ -1,0 +1,220 @@
+/*字型*/
+
+// $fontxm: arial,PMingLiU,'\65B0\7D30\660E\9AD4';
+// $fontjh: arial,'Microsoft JhengHei','\5FAE\8EDF\6B63\9ED1\9AD4',PMingLiU,'\65B0\7D30\660E\9AD4';
+// $fontyh: arial,'Microsoft YaHei','\5FAE\8F6F\96C5\9ED1',PMingLiU,'\65B0\7D30\660E\9AD4';
+// $fontUti: Arial,'LiHei Pro',微軟正黑體,新細明體,sans-serif;
+
+/*常用*/
+
+@mixin dc($dynamic: all 0.35s) {
+    transition: $dynamic;
+}
+
+@mixin radius($angle) {
+    border-radius: $angle;
+}
+
+@mixin circle($size, $bgcolor) {
+    width: $size;
+    height: $size;
+    @include radius($size);
+    background: $bgcolor;
+}
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    filter: alpha(opacity=$opacity * 100);
+}
+
+@mixin txt-overflow($width) {
+    width: 100%;
+    max-width: $width;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/*陰影*/
+
+@mixin box-shadow($x, $y, $blur, $color) {
+    box-shadow: $x $y $blur $color;
+}
+
+@mixin box-shadow-ff($x, $y, $blurA, $blurB, $blurC, $blurD, $blurE, $color) {
+    box-shadow: $x $y $blurA $color, $x $y $blurB $color, $x $y $blurC $color, $x $y $blurD $color, $x $y $blurE $color;
+}
+
+@mixin shadow($x, $y, $blur, $color) {
+    text-shadow: $x $y $blur $color;
+}
+
+@mixin txt-shadow($x, $y, $blurA, $blurB, $blurC, $blurD, $blurE, $color) {
+    text-shadow: $x $y $blurA $color, $x $y $blurB $color, $x $y $blurC $color, $x $y $blurD $color, $x $y $blurE $color;
+}
+
+
+/*漸層*/
+
+@mixin linear-gradient($from, $to) {
+    background-color: $to;
+    background-image: -moz-linear-gradirnt($from, $to);
+    background-image: linear-gradient($from, $to);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$from}', endColorstr='#{$to}', GradientType=0);
+}
+
+@mixin linear-gradient-x($from, $to) {
+    background-color: $to;
+    background-image: -moz-linear-gradirnt(left, $from, $to);
+    background-image: linear-gradient(to right, $from, $to);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$from}', endColorstr='#{$to}', GradientType=1);
+}
+
+
+/*三角形*/
+
+@mixin triangle($size, $color, $align, $type: 1) {
+    height: 0;
+    width: 0;
+    @if $align==top {
+        border-bottom: $size * $type solid $color;
+        border-left: $size / 2 solid transparent;
+        border-right: $size / 2 solid transparent;
+    }
+    @else if $align==right {
+        border-left: $size * $type solid $color;
+        border-top: $size / 2 solid transparent;
+        border-bottom: $size / 2 solid transparent;
+    }
+    @else if $align==bottom {
+        border-top: $size * $type solid $color;
+        border-left: $size / 2 solid transparent;
+        border-right: $size / 2 solid transparent;
+    }
+    @else if $align==left {
+        border-right: $size * $type solid $color;
+        border-top: $size / 2 solid transparent;
+        border-bottom: $size / 2 solid transparent;
+    }
+    @else if $align==right-top {
+        border-right: $size solid $color;
+        border-bottom: $size solid transparent;
+    }
+    @else if $align==left-top {
+        border-left: $size solid $color;
+        border-bottom: $size solid transparent;
+    }
+    @else if $align==right-bottom {
+        border-right: $size solid $color;
+        border-top: $size solid transparent;
+    }
+    @else if $align==left-bottom {
+        border-left: $size solid $color;
+        border-top: $size solid transparent;
+    }
+}
+
+@mixin triangle-B($sizeA, $sizeB, $color, $align, $type: 1) {
+    @if $align==right-top {
+        border-top: $sizeA solid $color;
+        border-bottom: $sizeB dotted transparent;
+        border-left: $sizeB dotted transparent;
+    }
+    @else if $align==right-bottom {
+        border-bottom: $sizeA solid $color;
+        border-top: $sizeB dotted transparent;
+        border-left: $sizeB dotted transparent;
+    }
+    @else if $align==left-top {
+        border-top: $sizeA solid $color;
+        border-bottom: $sizeB dotted transparent;
+        border-right: $sizeB dotted transparent;
+    }
+    @else if $align==left-bottom {
+        border-bottom: $sizeA solid $color;
+        border-top: $sizeB dotted transparent;
+        border-right: $sizeB dotted transparent;
+    }
+}
+
+
+/*瀏覽器*/
+
+$extralg: 1200px;
+$lg: 992px;
+$medium: 768px;
+$small: 576px;
+
+
+$breakpoints: (
+    'extralg': 'screen and (max-width: #{$extralg})',
+    'lg': 'screen and (max-width: #{$lg})',
+    'medium': 'screen and (max-width: #{$medium})',
+    'small': 'screen and (max-width: #{$small})',
+);
+@mixin respond-to($name) {
+    @media #{map-get($breakpoints, $name)} {
+        @content;
+    }
+}
+
+/*絕對上下左右置中*/
+
+@mixin translate-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+@mixin translate-clear {
+    position: inherit;
+    top: auto;
+    left: auto;
+    transform: none;
+}
+
+
+/*動畫*/
+
+@mixin animation($delay, $duration, $animation, $infinite, $forwards, $timing) {
+    animation: $animation $duration $timing $delay $infinite $forwards;
+}
+
+@mixin clearfix($type:both) {
+    &:after,
+    &::after {
+        content: "";
+        display: block;
+        height: 0;
+        clear: $type;
+        visibility: hidden;
+    }
+}
+
+@mixin placehoderColor ($color) {
+     // change placeholder color
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color: $color;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: $color;
+        opacity:  1;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: $color;
+        opacity:  1;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $color;
+    }
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        color: $color;
+    }
+
+    ::placeholder { /* Most modern browsers support this now. */
+        color: $color;
+    }
+}

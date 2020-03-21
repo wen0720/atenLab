@@ -1,0 +1,25 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial,"LiHei Pro",微軟正黑體,新細明體,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+ul,li,p,ol,figure {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a{
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+img{
+  max-width: 100%;
+}
